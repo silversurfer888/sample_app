@@ -25,4 +25,5 @@ doc/
 .project
 .DS_Store
 .idea
+bundler_stubs/
 .secret
