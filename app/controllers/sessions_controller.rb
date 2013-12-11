@@ -21,8 +21,9 @@ class SessionsController < ApplicationController
     end
   end
   
+  # calls sessions_helper function sign_out, then redirects to root
   def destroy
-    sign_out
+    sign_out 
     redirect_to root_url
   end
 end

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy # allows dependent microposts by user to also be deleted
+          # when user is deleted
   
   before_save {self.email = email.downcase }
   #before_save { email.downcase }
@@ -23,6 +25,14 @@ class User < ActiveRecord::Base
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
+  
+  # allow Users model to respond to "feed" which pulls the relevant microposts
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Micropost.where("user_id = ?", id) # "?" ensures variable 'id' is properly escaped
+              # before being used in SQL query
+  end
+  
 
   private
 

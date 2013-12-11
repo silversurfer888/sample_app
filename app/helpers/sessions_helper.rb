@@ -17,6 +17,7 @@ module SessionsHelper
   
   def current_user
     remember_token = User.encrypt(cookies[:remember_token])
+    # ||= sets value ONLY if @current_user is undefined
     @current_user ||= User.find_by(remember_token: remember_token)
   end
   
@@ -24,6 +25,17 @@ module SessionsHelper
     user == current_user
   end
   
+  # used to be in users_controller.rb, but now also needed to check signin for 
+  # Micropost actions, so moved to this sessions helper file
+  def signed_in_user
+    unless signed_in?
+      store_location #record url of intended page before redirect
+      redirect_to signin_url, notice: "Please sign in."
+    end
+  end
+  
+  
+  # this is called from sessions_controller.rb
   def sign_out
     self.current_user = nil
     cookies.delete(:remember_token)
@@ -35,7 +47,7 @@ module SessionsHelper
   end
   
   def store_location
-    session[:return_to] = request.url if request.get?
+    session[:return_to] = request.url if request.get? # store url into session cookie
   end
   
   
