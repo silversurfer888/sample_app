@@ -27,6 +27,10 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
+    # @micropost already defined when calling the filters before_action
+    # correct_user function defines @micropost to be the appropriate micropost
+    @micropost.destroy
+    redirect_to root_url
   end
   
   
