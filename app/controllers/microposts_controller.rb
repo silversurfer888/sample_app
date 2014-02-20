@@ -28,7 +28,7 @@ class MicropostsController < ApplicationController
 
   def destroy
     # @micropost already defined when calling the filters before_action
-    # correct_user function defines @micropost to be the appropriate micropost
+    # correct_user function (private below) defines @micropost to be the appropriate micropost
     @micropost.destroy
     redirect_to root_url
   end
@@ -42,8 +42,10 @@ class MicropostsController < ApplicationController
       params.require(:micropost).permit(:content)
     end
     
-    
-    # check if URL user is same as micropost's user; if not, redirect
+    # current_user is defined in helpers/sessions_helper.rb
+    # check if URL's id parameter is found in list of user's microposts
+    # if not, redirect to root and don't allow user to do whatever he was
+    # trying to do
     def correct_user
       @micropost = current_user.microposts.find_by(id: params[:id])
       redirect_to root_url if @micropost.nil?

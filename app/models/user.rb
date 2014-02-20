@@ -27,10 +27,16 @@ class User < ActiveRecord::Base
   end
   
   # allow Users model to respond to "feed" which pulls the relevant microposts
+  # Each User has a feed so we want to be able to do user.feed
   def feed
     # This is preliminary. See "Following users" for the full implementation.
     Micropost.where("user_id = ?", id) # "?" ensures variable 'id' is properly escaped
               # before being used in SQL query
+              # same as 'microposts' - which references all microposts of the user
+              # But eventually want not just this user's microposts -- but the
+              # microposts of the folks he's following
+              # Otherwise user.microposts would've been fine, rather we want user.feed
+              
   end
   
 

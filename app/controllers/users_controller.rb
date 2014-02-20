@@ -21,6 +21,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id]) 
     @microposts = @user.microposts.paginate(page: params[:page])
+
+    # default per page is set to 30 for will_paginate gem
+    # can customize by saying @user.microposts.paginate(page: params[:page], :per_page => 10)
+
+
   end
   
   def create
