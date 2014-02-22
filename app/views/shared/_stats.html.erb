@@ -1,0 +1,19 @@
+<% @user ||= current_user 
+  ## when @user not set, set it equal to current_user, defined in 
+  ## helpers/sessions_helper
+%>
+
+<div class="stats">
+  <a href="<%= following_user_path(@user) %>">
+    <strong id="following" class="stat">
+      <%= @user.followed_users.count %>
+    </strong>
+    following
+  </a>
+  <a href="<%= followers_user_path(@user) %>">
+    <strong id="followers" class="stat">
+      <%= @user.followers.count %>
+    </strong>
+    followers
+  </a>
+</div>

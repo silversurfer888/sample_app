@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   # make sure user is signed in when calling these user actions
-  before_action :signed_in_user, only: [:index, :edit, :update]
+  before_action :signed_in_user, only: [:index, :edit, :update,
+                      :following, :followers]
   
   # make sure user is correct user, editing/updating his OWN user info not someone else's
   before_action :correct_user, only: [:edit, :update]
@@ -61,7 +62,20 @@ class UsersController < ApplicationController
   end
   
   
-  
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page], :per_page => '7')
+    render 'show_follow'
+
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page], :per_page => '7')
+    render 'show_follow'
+  end
   
   
   
