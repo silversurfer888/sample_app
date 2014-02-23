@@ -146,6 +146,19 @@ describe "AuthenticationPages" do
           specify { expect(response).to redirect_to(signin_path) }
         end
       end
+
+      describe "in the Relationships controller" do
+        describe "submitting to the create action" do
+          before { post relationships_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete relationship_path(1) } # singular relationship_path
+                # switch to singular named route when particular ID is sepcified
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
     end
     
     

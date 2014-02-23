@@ -5,4 +5,22 @@ class Micropost < ActiveRecord::Base
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
   
+
+  def self.from_users_followed_by(user)
+  	# get array of user's followed user IDS
+  	# it looks up user.followed_user in relationships table and pulls 
+  	# array of ids
+  	# followed_user_ids = user.followed_user_ids
+  	# Finds microposts where user_id is in list of followed's and 
+ 	# specified user
+  	#where("user_id IN (?) OR user_id = ?", followed_user_ids, user)
+
+  	# IN would be long set and process slowly. Try subselect
+  	followed_user_ids = "SELECT followed_id FROM relationships
+  						WHERE follower_id = :user_id"
+  	# replaced with a subselect query, rather than array
+
+  	where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
+  			user_id: user.id)
+  end
 end

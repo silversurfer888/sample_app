@@ -5,6 +5,7 @@ SampleApp::Application.routes.draw do
   resources :users do
     member do
       get :following, :followers
+      # RESTful named routes; singular form 'user_path'
       # enables following_user_path (individual user's link)
       # enables followers_user_path (individual user's link)
     end

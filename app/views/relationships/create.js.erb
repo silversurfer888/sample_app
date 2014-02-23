@@ -1,0 +1,6 @@
+// follow relationship was created, update page to reflect 'unfollow' button
+// and refresh followers count for that user profile since it should now
+// include ME as an additional follower
+
+$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>")
+$("#followers").html('<%= @user.followers.count %>')

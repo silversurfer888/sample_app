@@ -1,0 +1,5 @@
+// after destroyed, call this .js.erb file and update page
+// since unfollowed was clicked, refresh page to show follow button
+
+$("#follow_form").html("<%= escape_javascript(render('users/follow')) %>")
+$("#followers").html('<%= @user.followers.count %>')

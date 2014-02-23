@@ -114,7 +114,7 @@ describe "User pages" do
         it "should decrement the followed user count" do
           expect do
             click_button "Unfollow"
-          end.to change(other_user.followed_users, :count).by(-1)
+          end.to change(user.followed_users, :count).by(-1)
 
         end
 
@@ -261,7 +261,7 @@ describe "User pages" do
 
     describe "followers" do
       before do
-        signin_in other_user
+        sign_in other_user
         visit followers_user_path(other_user)
       end
       # other user signing in, visiting his followers should see
@@ -269,5 +269,6 @@ describe "User pages" do
       it { should have_title(full_title('Followers')) }
       it { should have_selector('h3', text: 'Followers') }
       it { should have_link(user.name, href: user_path(user)) }
+    end
   end
 end

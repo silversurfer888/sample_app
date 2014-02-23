@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
-
+  # RESTful route calls action 'show' when url is /users/1
   def show
     @user = User.find(params[:id]) 
     @microposts = @user.microposts.paginate(page: params[:page])
