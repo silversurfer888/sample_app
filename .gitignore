@@ -25,5 +25,10 @@ doc/
 .project
 .DS_Store
 .idea
-bundler_stubs/
+bundler_stubs/ 
+			#eliminate this folder which helps get rid of 
+			# 'bundle exec' command, which helps specify to run commands
+			# within the environment created by Gemfile
+			# So, do not update to Github since these settings vary from 
+			# computer to computer
 .secret

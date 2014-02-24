@@ -20,6 +20,11 @@ SampleApp::Application.routes.draw do
   #get "static_pages/help"  
   #get "static_pages/about"
   #get "static_pages/contact"
+
+  # Above 'get' routes were removed to get url from root
+  # rather than going through subdirectory static_pages
+
+  
   
  
   root 'static_pages#home'
